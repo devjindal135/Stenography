@@ -25,7 +25,7 @@ def encrypt_image(img_path, message):
         m = (m + 1) % width
         z = (z + 1) % 3
     
-    encrypted_path = os.path.join("/tmp/", 'encrypted.png')
+    encrypted_path = os.path.join("/tmp", 'encrypted.png')
     cv2.imwrite(encrypted_path, img)
     return encrypted_path
 
