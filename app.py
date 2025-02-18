@@ -78,5 +78,10 @@ def decrypt():
     message = decrypt_image(img_path)
     return jsonify({"success": True, "message": message})
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory("static", "favicon.ico", mimetype="image/vnd.microsoft.icon")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
