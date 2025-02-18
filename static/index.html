@@ -60,12 +60,12 @@
             let file = document.getElementById("encryptImage").files[0];
             let password = document.getElementById("encryptPassword").value;
             let message = document.getElementById("secretMessage").value;
-            
+
             if (!file || !password || !message) {
                 alert("Please upload an image, enter a message, and set a password.");
                 return;
             }
-            
+
             formData.append("image", file);
             formData.append("password", password);
             formData.append("message", message);
@@ -77,8 +77,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    let encryptedImg = "data:image/png;base64," + data.image;
                     let downloadLink = document.getElementById("downloadEncrypted");
-                    downloadLink.href = data.image_url;
+                    downloadLink.href = encryptedImg;
                     downloadLink.style.display = "block";
                 } else {
                     alert(data.error);
