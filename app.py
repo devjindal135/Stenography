@@ -4,9 +4,8 @@ import cv2
 import numpy as np
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'tmp/uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = "/tmp"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # Encryption function
 def encrypt_image(img_path, message):
@@ -58,7 +57,7 @@ def encrypt():
     password = request.form["password"]
     message = request.form["message"]
 
-    img_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+    img_path = os.path.join("/tmp", file.filename)  # Save directly in /tmp
     file.save(img_path)
 
     encrypted_img_path = encrypt_image(img_path, message)
@@ -68,7 +67,6 @@ def encrypt():
             encoded_image = base64.b64encode(img_file.read()).decode("utf-8")
         return jsonify({"success": True, "image": encoded_image})
     return jsonify({"success": False, "error": "Message too long!"})
-
 
 @app.route("/decrypt", methods=["POST"])
 def decrypt():
